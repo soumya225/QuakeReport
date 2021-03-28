@@ -7,7 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
     public static final String LOG_TAG = EarthquakeActivity.class.getName();
@@ -41,7 +45,10 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         cityTextView.setText(currentEarthquake.getCity());
 
         TextView dateTextView = (TextView) listItemView.findViewById(R.id.date);
-        dateTextView.setText(currentEarthquake.getDate());
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(currentEarthquake.getTime());
+        String formattedDate = c.getDisplayName(c.MONTH, Calendar.SHORT, Locale.ENGLISH) + " " + c.get(c.DAY_OF_MONTH) + ", " + c.get(c.YEAR);
+        dateTextView.setText(formattedDate);
 
         // Return the whole list item layout (containing 2 TextViews and an ImageView)
         // so that it can be shown in the ListView

@@ -1,11 +1,9 @@
 package com.example.android.quakereport;
 
 import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 /**
@@ -59,7 +57,7 @@ public final class QueryUtils {
 
                 String mag = properties.getString("mag");
                 String place = properties.getString("place");
-                String time = properties.getString("time");
+                long time = properties.getLong("time");
 
                 Earthquake e = new Earthquake(mag, place, time);
                 earthquakes.add(e);
