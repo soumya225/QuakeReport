@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -29,20 +28,26 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
                     R.layout.earthquake_list_item, parent, false);
         }
 
-        // Get the {@link AndroidFlavor} object located at this position in the list
         Earthquake currentEarthquake = getItem(position);
 
-        // Find the TextView in the list_item.xml layout with the ID version_name
         TextView magnitudeTextView = (TextView) listItemView.findViewById(R.id.magnitude);
-        // Get the version name from the current AndroidFlavor object and
-        // set this text on the name TextView
-        magnitudeTextView.setText(currentEarthquake.getMagnitude());
+        String magnitude = String.format("%.1f",currentEarthquake.getMagnitude());
+        magnitudeTextView.setText(magnitude);
 
-        // Find the TextView in the list_item.xml layout with the ID version_number
-        TextView cityTextView = (TextView) listItemView.findViewById(R.id.city);
-        // Get the version number from the current AndroidFlavor object and
-        // set this text on the number TextView
-        cityTextView.setText(currentEarthquake.getCity());
+
+        String location = currentEarthquake.getLocation();
+        String offset = "Near";
+        if(location.contains("of")){
+            String[] parts = location.split("(?=of)");
+            offset = parts[0];
+            location = parts[1];
+        }
+
+        TextView locationTextView = (TextView) listItemView.findViewById(R.id.location);
+        locationTextView.setText(location);
+
+        TextView offsetTextView = (TextView) listItemView.findViewById(R.id.offset);
+        offsetTextView.setText(offset);
 
         TextView dateTextView = (TextView) listItemView.findViewById(R.id.date);
         Calendar c = Calendar.getInstance();
@@ -50,8 +55,6 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         String formattedDate = c.getDisplayName(c.MONTH, Calendar.SHORT, Locale.ENGLISH) + " " + c.get(c.DAY_OF_MONTH) + ", " + c.get(c.YEAR);
         dateTextView.setText(formattedDate);
 
-        // Return the whole list item layout (containing 2 TextViews and an ImageView)
-        // so that it can be shown in the ListView
         return listItemView;
     }
 }
