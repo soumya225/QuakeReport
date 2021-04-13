@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
-    public static final String LOG_TAG = EarthquakeActivity.class.getName();
+    public static final String LOG_TAG = EarthquakeAdapter.class.getName();
 
     public EarthquakeAdapter(Context context, List<Earthquake> earthquakes) {
         super(context, 0, earthquakes);
